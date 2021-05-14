@@ -1,3 +1,3 @@
-run npm i \n
-run script one time and stop it when the bot finish create frames\n
+run npm i <br/>
+run script one time and stop it when the bot finish create frames<br/>
 run script again and enjoy !
