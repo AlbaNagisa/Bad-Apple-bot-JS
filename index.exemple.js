@@ -16,25 +16,38 @@ client.on("message", async (message) => {
       fs.readdirSync("frames");
 
       let img = "";
+
+      let counter = false;
       message.channel.send("Patience ca arrive").then(async (msg) => {
-        for (let i = 1; i < 6572; i++) {
+        for (let i = 1; i < 6572; i) {
           img = `./frames/out-${i}.png`;
-
-          asciify(img, options, function async(err, asciified) {
+          const attachment = new Dicord.MessageAttachment(img);
+          if (!counter) {
+            console.log("noice");
+            i++;
+            counter = true;
+            console.log(counter);
+          }
+          if (counter) {
             setTimeout(() => {
-              msg.edit("", {
-                embed: {
-                  title: i,
-                  description: "```" + asciified + "```",
-                },
-              });
-            }, 1000);
+              console.log("pourquoi pas");
 
-            if (err) {
-              console.log(err);
-            }
-          });
-          console.log(i);
+              asciify(img, options, function async(err, asciified) {
+                counter = false;
+                msg.edit("", {
+                  embed: {
+                    title: i,
+                    description: "```" + asciified + "```",
+                    /* attachFiles: attachment,
+                      image: { url: `attachment://${attachment.name}` }, */
+                  },
+                });
+                if (err) {
+                  console.log(err);
+                }
+              });
+            }, 2500);
+          }
         }
       });
     } catch {
